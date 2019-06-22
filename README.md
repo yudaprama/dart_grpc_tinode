@@ -2,6 +2,10 @@
 
 Tinode chat client with gRPC connection
 
+## Status
+
+**Work In Progress**
+
 ## Requirements
 
 To compile a .proto file, you must use the 'protoc' command which is installed separately. For mac, you can install using homebrew
