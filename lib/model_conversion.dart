@@ -219,6 +219,7 @@ _setLastSeenUserAgent(result, lastSeenUserAgent) {
 TopicSub topicSub({Int64 updatedAt, Int64 deletedAt, bool online, AccessMode acs, int readId, int recvId, List<int> public, List<int> private, String userId, String topic, Int64 touchedAt, int seqId, int delId, Int64 lastSeenTime, String lastSeenUserAgent}) {
 	TopicSub result = TopicSub();
 	if (updatedAt != null) result..updatedAt = updatedAt;
+	_setDeletedAt(result, deletedAt);
 	if (touchedAt != null) result..touchedAt = touchedAt;
 	if (online != null) result..online = online;
 	if (acs != null) result..acs = acs;
@@ -233,6 +234,10 @@ TopicSub topicSub({Int64 updatedAt, Int64 deletedAt, bool online, AccessMode acs
 	_setLastSeenTime(result, lastSeenTime);
 	_setLastSeenUserAgent(result, lastSeenUserAgent);
 	return result;
+}
+
+_setDeletedAt(result, Int64 deletedAt) {
+	if (deletedAt != null) result..deletedAt = deletedAt;
 }
 
 DelValues delValues({int delId, List<SeqRange> delSeq}) {
@@ -255,6 +260,9 @@ ServerCtrl serverCtrl({String id, String topic, int code, String text, Map<Strin
 ServerData serverData({String topic, String fromUserId, Int64 timestamp, Int64 deletedAt, int seqId, Map<String, List<int>> head, List<int> content}) {
 	ServerData result = ServerData();
 	_setTopic(result, topic);
+	_setFromUserId(result, fromUserId);
+	_setDeletedAt(result, deletedAt);
+	_setSeqId(result, seqId);
 	return result;
 }
 
@@ -284,9 +292,20 @@ ServerMeta serverMeta({String id, String topic, TopicDesc desc, List<TopicSub> s
 	return result;
 }
 
+ServerInfo serverInfo({String topic, String fromUserId, InfoNote what, int seqId}) {
+	ServerInfo result = ServerInfo();
+	_setTopic(result, topic);
+	_setFromUserId(result, fromUserId);
+	return result;
+}
+
 
 _setDelId(result, delId) {
 	if (delId != null) result..delId = delId;
+}
+
+_setFromUserId(result, fromUserId) {
+	if (fromUserId != null) result..fromUserId = fromUserId;
 }
 
 _setDesc(result, desc) {
