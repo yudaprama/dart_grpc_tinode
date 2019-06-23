@@ -227,6 +227,17 @@ TopicSub topicSub({Int64 updatedAt, Int64 deletedAt, bool online, AccessMode acs
 	return result;
 }
 
+DelValues delValues({int delId, List<SeqRange> delSeq}) {
+	DelValues result = DelValues();
+	_setDelId(result, delId);
+	if (delSeq != null) result.delSeq..clear()..addAll(delSeq);
+	return result;
+}
+
+
+_setDelId(result, delId) {
+	if (delId != null) result..delId = delId;
+}
 
 
 
