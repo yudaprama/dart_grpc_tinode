@@ -36,8 +36,12 @@ SetQuery setQuery({SetDesc desc, SetSub sub, List<String> tags}) {
 	result..desc = desc;
 	result..sub = sub;
 	// https://github.com/dart-lang/protobuf/issues/102#issuecomment-410011968
-	result.tags..clear()..addAll(tags);
+	_setTags(result, tags);
 	return result;
+}
+
+_setTags(result, List<String> tags) {
+	if (tags != null) result.tags..clear()..addAll(tags);
 }
 
 SeqRange seqRange({int low, int hi}) {
@@ -269,13 +273,28 @@ ServerPres serverPres({String topic, String src, ServerPres_What what, String us
 	return result;
 }
 
+ServerMeta serverMeta({String id, String topic, TopicDesc desc, List<TopicSub> sub, DelValues del, List<String> tags}) {
+	ServerMeta result = ServerMeta();
+	_setId(result, id);
+	_setTopic(result, topic);
+	_setDesc(result, desc);
+	if (sub != null) result.sub..clear()..addAll(sub);
+	if (del != null) result..del = del;
+	_setTags(result, tags);
+	return result;
+}
+
 
 _setDelId(result, delId) {
 	if (delId != null) result..delId = delId;
 }
 
+_setDesc(result, desc) {
+	if (desc != null) result..desc = desc;
+}
+
 _setTargetUserId(result, targetUserId) {
-	if (targetUserId != null) result..delId = targetUserId;
+	if (targetUserId != null) result..targetUserId = targetUserId;
 }
 
 _setActorUserId(result, actorUserId) {
