@@ -188,6 +188,45 @@ TopicDesc topicDesc({int createdAt, int updatedAt, int touchedAt, DefaultAcsMode
 	return result;
 }
 
+_setUserId(result, userId) {
+	if (userId != null) result..userId = userId;
+}
+
+_setTopic(result, topic) {
+	if (topic != null) result..topic = topic;
+}
+
+_setSeqId(result, seqId) {
+	if (seqId != null) result..seqId = seqId;
+}
+
+_setLastSeenTime(result, lastSeenTime) {
+	if (lastSeenTime != null) result..lastSeenTime = lastSeenTime;
+}
+
+_setLastSeenUserAgent(result, lastSeenUserAgent) {
+	if (lastSeenUserAgent != null) result..lastSeenUserAgent = lastSeenUserAgent;
+}
+
+TopicSub topicSub({Int64 updatedAt, Int64 deletedAt, bool online, AccessMode acs, int readId, int recvId, List<int> public, List<int> private, String userId, String topic, Int64 touchedAt, int seqId, int delId, Int64 lastSeenTime, String lastSeenUserAgent}) {
+	TopicSub result = TopicSub();
+	if (updatedAt != null) result..updatedAt = updatedAt;
+	if (touchedAt != null) result..touchedAt = touchedAt;
+	if (online != null) result..online = online;
+	if (acs != null) result..acs = acs;
+	if (readId != null) result..readId = readId;
+	if (recvId != null) result..recvId = recvId;
+	if (delId != null) result..delId = delId;
+	if (public != null) result..public = public;
+	if (private != null) result..private = private;
+	_setUserId(result, userId);
+	_setTopic(result, topic);
+	_setSeqId(result, seqId);
+	_setLastSeenTime(result, lastSeenTime);
+	_setLastSeenUserAgent(result, lastSeenUserAgent);
+	return result;
+}
+
 
 
 
