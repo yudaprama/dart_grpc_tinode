@@ -59,7 +59,7 @@ Credential credential({String method, String value, String response, List<int> p
 ClientHi clientHi({String id, String userAgent, String ver, String deviceId, String lang, String platform}) {
 	ClientHi result = ClientHi();
 	if (id != null) result..id = id;
-	if (userAgent != null) result..userAgent = userAgent;
+	_setUserAgent(result, userAgent);
 	if (ver != null) result..ver = ver;
 	if (deviceId != null) result..deviceId = deviceId;
 	if (lang != null) result..lang = lang;
@@ -192,6 +192,10 @@ _setUserId(result, userId) {
 	if (userId != null) result..userId = userId;
 }
 
+_setUserAgent(result, userAgent) {
+	if (userAgent != null) result..userAgent = userAgent;
+}
+
 _setTopic(result, topic) {
 	if (topic != null) result..topic = topic;
 }
@@ -230,13 +234,72 @@ TopicSub topicSub({Int64 updatedAt, Int64 deletedAt, bool online, AccessMode acs
 DelValues delValues({int delId, List<SeqRange> delSeq}) {
 	DelValues result = DelValues();
 	_setDelId(result, delId);
-	if (delSeq != null) result.delSeq..clear()..addAll(delSeq);
+	_setDelSeq(result, delSeq);
+	return result;
+}
+
+ServerCtrl serverCtrl({String id, String topic, int code, String text, Map<String, List<int>> params}) {
+	ServerCtrl result = ServerCtrl();
+	_setId(result, id);
+	_setTopic(result, topic);
+	_setCode(result, code);
+	_setText(result, text);
+	if (params != null) result.params..clear()..addAll(params);
+	return result;
+}
+
+ServerData serverData({String topic, String fromUserId, Int64 timestamp, Int64 deletedAt, int seqId, Map<String, List<int>> head, List<int> content}) {
+	ServerData result = ServerData();
+	_setTopic(result, topic);
+	return result;
+}
+
+ServerPres serverPres({String topic, String src, ServerPres_What what, String userAgent, int seqId, int delId, List<SeqRange> delSeq, String targetUserId, String actorUserId, AccessMode acs}) {
+	ServerPres result = ServerPres();
+	_setTopic(result, topic);
+	if (src != null) result..src = src;
+	if (what != null) result..what = what;
+	_setUserAgent(result, userAgent);
+	_setSeqId(result, seqId);
+	_setDelId(result, delId);
+	_setDelSeq(result, delSeq);
+	_setTargetUserId(result, targetUserId);
+	_setActorUserId(result, actorUserId);
+	_setAcs(result, acs);
 	return result;
 }
 
 
 _setDelId(result, delId) {
 	if (delId != null) result..delId = delId;
+}
+
+_setTargetUserId(result, targetUserId) {
+	if (targetUserId != null) result..delId = targetUserId;
+}
+
+_setActorUserId(result, actorUserId) {
+	if (actorUserId != null) result..delId = actorUserId;
+}
+
+_setDelSeq(result, delSeq) {
+	if (delSeq != null) result.delSeq..clear()..addAll(delSeq);
+}
+
+_setId(result, id) {
+	if (id != null) result..id = id;
+}
+
+_setCode(result, code) {
+	if (code != null) result..code = code;
+}
+
+_setAcs(result, acs) {
+	if (acs != null) result..acs = acs;
+}
+
+_setText(result, text) {
+	if (text != null) result..text = text;
 }
 
 
